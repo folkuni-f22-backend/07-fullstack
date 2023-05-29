@@ -1,10 +1,13 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 const app = express()
-const port = 9548
+const port = process.env.PORT || 9548
+// Obs! .env ska i normala fall INTE följa med i Git-repot
 
 // Middleware
 // Logger - skriv ut information om inkommande request på terminalen
