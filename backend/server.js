@@ -23,7 +23,13 @@ app.use( express.static(pathToStaticFolder) )
 
 // API
 app.get('/api/movies', (req, res) => {
-	res.send([])
+	// Obs! I en mer komplett app hämtar vi datan från databasen
+	res.send([
+		{ id: 'a', title: 'Inception' },
+		{ id: 'b', title: 'The Shawshank Redemption' },
+		{ id: 'c', title: 'The Drak Knight' },
+		{ id: 'd', title: 'The Grand Budapest Hotel' },
+	])
 })
 
 

@@ -1,35 +1,42 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [movies, setMovies] = useState(null)
+	const [errorMessage, setErrorMessage] = useState('')
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const getMovies = async () => {
+		// Ta bort eventuellt felmeddelande
+		setErrorMessage('')
+
+		// Hur skriver man URL?
+		// "/api/movies"
+		try {
+			const response = await fetch('/api/movies')
+			const data = await response.json()
+			setMovies(data)
+		} catch(error) {
+			setErrorMessage(error.message)
+		}
+	}
+
+	return (
+		<div>
+			<button onClick={getMovies}> Give me some movies! </button>
+			{movies
+				? (
+					<ul>
+						{movies.map(movie => (
+							<li key={movie.id}> {movie.title} </li>
+						))}
+					</ul>
+				)
+				: <p> No movies yet... </p>}
+			
+			{errorMessage !== '' ? <p> Ett fel har inträffat! {errorMessage} </p> : null}
+		</div>
+
+	)
 }
 
 export default App
