@@ -17,7 +17,7 @@ app.use( cors() )
 // Express.statis - Alla filer inuti den statiska mappen (i detta fallet kallad "static") servas automatiskt, utan att man behöver lägga till en route.
 // __dirname blir sökvägen till backend-mappen
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const pathToStaticFolder = join(__dirname, 'static')
+const pathToStaticFolder = join(__dirname, '../dist')
 app.use( express.static(pathToStaticFolder) )
 
 
